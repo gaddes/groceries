@@ -5,7 +5,7 @@ import './home.scss';
 class Home extends Component {
 
   /**
-   * Write function that will be called on 'ADD' button click:
+   * TODO: Write function that will be called on 'ADD' button click:
    *  1) Capture text in input box
    *  2) Create new <li> element
    *  3) Text of <li> element should match text content in input box
