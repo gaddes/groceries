@@ -1,7 +1,14 @@
 @import 'variables';
 
 .home {
-  .addItem {
-    color: red;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+// Position and layout styles
+.flex-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
