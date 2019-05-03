@@ -1,0 +1,17 @@
+// Breakpoints
+$breakpoint-medium: 768px;
+$breakpoint-large: 1200px;
+
+// Header
+$header-height: 56px;
+$header-text-muted: #868e96;
+$header-orange: rgba(255, 155, 0, 0.8);
+$header-shadow: 0px 1px 1px rgba(0, 0, 0, 0.4);
+$header-button-border: 1px solid $header-orange;
+$header-background: #f8f9fa;
+
+// Image drop shadow
+$image-shadow: drop-shadow(0px 10px 5px rgba(0, 0, 0, 0.2));
+$image-hover-transition: all 0.3s ease-in-out;
+$image-hover-transform: scale(1.1);
+$project-hover-transform: scale(1.05);
