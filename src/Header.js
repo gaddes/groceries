@@ -5,8 +5,8 @@ import './header.scss';
 function Header() {
   return (
     <div className='header'>
-      <Link className='logo' to='/home'>
-        <span className='logo__text -title'>Groceries App</span>
+      <Link className='title' to='/home'>
+        <span className='title__text'>Groceries App</span>
       </Link>
     </div>
   );

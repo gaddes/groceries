@@ -4,89 +4,21 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: 1rem 3rem;
   box-shadow: $header-shadow;
   background-color: $header-background;
   height: $header-height;
   z-index: 1000;
 
-  @media only screen and (min-width: $breakpoint-medium) {
-    padding: 1rem 3rem;
-  }
-
-  & .logo {
-    display: flex;
-    flex-direction: column;
+  & .title {
     cursor: pointer;
     // Override default link attributes
     text-decoration: none;
     color: inherit;
 
     &__text {
-      padding: 0.2rem 0;
-    }
-
-    & .-title {
       font-size: 1.2rem;
-      display: none;
-
-      @media only screen and (min-width: $breakpoint-medium) {
-        display: block;
-      }
-    }
-
-    & .-mobile {
-      display: block;
-      font-size: 1rem;
-      // Same margin & padding as header links
-      margin: 0 0.5rem;
-      padding: 0.5rem;
-
-      @media only screen and (min-width: $breakpoint-medium) {
-        display: none;
-      }
-    }
-
-    & .-subtext {
-      display: none;
-      font-size: 0.9rem;
-      color: $header-text-muted;
-
-      @media only screen and (min-width: $breakpoint-medium) {
-        display: block;
-      }
-    }
-  }
-
-  & .links {
-    padding: 0;
-
-    & .link {
-      margin: 0 0.5rem;
-      padding: 0.5rem;
-      // Override default link attributes
-      color: $header-text-muted;
-      text-decoration: none;
-
-      &:hover {
-        color: inherit;
-        border-bottom: 1px solid black;
-
-        // Prevent border on hover for last child
-        &:last-child {
-          border-bottom: $header-button-border;
-        }
-      }
-    }
-
-    & .-contact {
-      border: $header-button-border;
-      border-radius: 5px;
-      transition: 0.3s;
-
-      &:hover {
-        background: $header-orange;
-      }
+      padding: 0.2rem 0;
     }
   }
 }
