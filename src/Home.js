@@ -127,14 +127,12 @@ class ShoppingList extends Component {
   }
 }
 
-class Home extends Component {
-  render() {
-    return (
-      <div className='home'>
-        <ShoppingList />
-      </div>
-    );
-  }
+function Home() {
+  return (
+    <div className='home'>
+      <ShoppingList />
+    </div>
+  );
 }
 
 export default Home;
