@@ -59,18 +59,16 @@ class ShoppingList extends Component {
 
   /**
    * This function adds a new item to the list
-   * 
-   * @param {array} items - current items taken from parent component's state
    */
-  addItem = (items) => {
+  addItem = () => {
     // Select input box
     const inputField = document.querySelector(`.item-input`);
     const inputContent = inputField.value;
+
     // Check not empty
     if (inputContent !== '') {
-      // Create new array by concatenating existing state with new item
-      const newItems = items.concat([inputContent]);
-      this.setState({ items: newItems });
+      // Update state by concatenating previous state with an array containing only the new item
+      this.setState(previousState => ({ items: previousState.items.concat([inputContent]) }));
       // Clear input field
       inputField.value = '';
     }
@@ -115,7 +113,7 @@ class ShoppingList extends Component {
           </button>
         </div>
         <InputBox
-          onClick={() => this.addItem(this.state.items)}
+          onClick={() => this.addItem()}
         />
         <ListItems
           items={this.state.items}
