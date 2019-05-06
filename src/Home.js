@@ -1,31 +1,13 @@
 import React, {Component} from 'react';
 import './home.scss';
 
-class InputBox extends Component {
-  addItem = () => {
-    // Select input box
-    const inputField = document.querySelector(`.item-input`);
-    const inputContent = inputField.value;
-    // Check not empty
-    if (inputContent !== '') {
-      // Create new array by concatenating existing state with new item
-      const newItems = this.state.items.concat([inputContent]);
-      this.setState({ items: newItems });
-      // Clear input field
-      inputField.value = '';
-    }
-  }
-
-  render() {
-    return (
-      <div>
-        <div className='flex-row'>
-          <input className='item-input' type='text' placeholder='eggs, chicken, pickles...'></input>
-          <button className='item-add' onClick={() => this.addItem()}>Add</button>
-        </div>
-      </div>
-    );
-  }
+function InputBox(props) {
+  return (
+    <div className='flex-row'>
+      <input className='item-input' type='text' placeholder='eggs, chicken, pickles...'></input>
+      <button className='item-add' onClick={props.onClick}>Add</button>
+    </div>
+  );
 }
 
 function ListItems(props) {
@@ -48,9 +30,7 @@ class ShoppingList extends Component {
       shoppingListIsBeingEdited: false,
       // NOTE: this list is for testing only - items will be added by using the 'add' function in production
       items: [
-        'item 1',
-        'item 2',
-        'item 3'
+
       ]
     }
   }
@@ -67,6 +47,20 @@ class ShoppingList extends Component {
     console.groupEnd('componentDidUpdate');
   }
 
+  addItem = (items) => {
+    // Select input box
+    const inputField = document.querySelector(`.item-input`);
+    const inputContent = inputField.value;
+    // Check not empty
+    if (inputContent !== '') {
+      // Create new array by concatenating existing state with new item
+      const newItems = items.concat([inputContent]);
+      this.setState({ items: newItems });
+      // Clear input field
+      inputField.value = '';
+    }
+  }
+
   deleteItem = () => {
     this.setState({ shoppingListIsBeingEdited: true });
     console.log('item deleted!');
@@ -79,7 +73,9 @@ class ShoppingList extends Component {
           <h2>Shopping list</h2>
           <button className='item-edit'>Edit</button>
         </div>
-        <InputBox />
+        <InputBox
+          onClick={() => this.addItem(this.state.items)}
+        />
         <ListItems
           items={this.state.items}
         />
