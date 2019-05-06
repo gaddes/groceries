@@ -28,15 +28,44 @@ class ShoppingList extends Component {
   }
 
   deleteItem = () => {
-    console.log('item deleted!');
     this.setState({ shoppingListIsBeingEdited: true });
+    console.log('item deleted!');
+  }
+
+  addItem = () => {
+    // Select input box
+    const inputField = document.querySelector(`.item-input`);
+    const inputContent = inputField.value;
+    // Check not empty
+    if (inputContent !== '') {
+      // Create new array by concatenating existing state with new item
+      const newItems = this.state.items.concat([inputContent]);
+      this.setState({ items: newItems });
+      // Clear input field
+      inputField.value = '';
+    }
   }
 
   render() {
+    // Loop through items in state, add each one to array as <li>
+    const items = this.state.items.map((item, index) =>
+      <li key={`item-${index + 1}`}>{item}</li>
+    );
+
     return (
-      <div className="list-item">
-        <span>some text</span>
-        <button className='item-delete' onClick={() => this.deleteItem()}>Delete</button>
+      <div className="shopping-list">
+        <div className='flex-row'>
+          <h2>Shopping list</h2>
+          <button className='item-edit'>Edit</button>
+        </div>
+        <ul className="list-items">
+          {items}
+        </ul>
+        {/* <button className='item-delete' onClick={() => this.deleteItem()}>Delete</button> */}
+        <div className='flex-row'>
+          <input className='item-input' type='text' placeholder='eggs, chicken, pickles...'></input>
+          <button className='item-add' onClick={() => this.addItem()}>Add</button>
+        </div>
       </div>
     );
   }
@@ -67,35 +96,15 @@ class Home extends Component {
   render() {
     return (
       <div className='home'>
-        <ShoppingList />
         <div>
           <h2>Add new item</h2>
-          <div className='flex-row'>
+          <p>input box to be added back in here...</p>
+          {/* <div className='flex-row'>
             <input className='item-input' type='text' placeholder='eggs, chicken, pickles...'></input>
             <button className='item-add'>Add</button>
-          </div>
+          </div> */}
         </div>
-          
-        <div className='shopping-list'>
-          <div className='flex-row'>
-            <h2>Shopping list</h2>
-            <button className='item-edit'>Edit</button>
-          </div>
-          <ul className='items'>
-            <li className='item'>
-              <span>Item 1</span>
-              <button className='item-delete'>Delete</button>
-            </li>
-            <li className='item'>
-              <span>Item 2</span>
-              <button className='item-delete'>Delete</button>
-            </li>
-            <li className='item'>
-              <span>Item 3</span>
-              <button className='item-delete'>Delete</button>
-            </li>
-          </ul>
-        </div>
+        <ShoppingList />
       </div>
     );
   }
