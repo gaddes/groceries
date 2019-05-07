@@ -77,13 +77,11 @@ class ShoppingList extends Component {
   /**
    * This function deletes an item from the list
    * 
-   * @param {object} currentState - current state of parent component incl. list of items
    * @param {integer} index - index of item to be deleted
    */
-  deleteItem = (currentState, index) => {
-    // Create new array from existing items, but filter so it does not include the item corresponding to the clicked delete button
-    const newItems = currentState.items.filter((item, key) => key !== index);
-    this.setState({ items: newItems });
+  deleteItem = (index) => {
+    // Update state by filtering previousState so it no longer includes the item corresponding to the clicked delete button
+    this.setState(previousState => ({ items: previousState.items.filter((item, key) => key !== index) }));
   }
 
   /**
@@ -118,7 +116,7 @@ class ShoppingList extends Component {
         <ListItems
           items={this.state.items}
           shoppingListIsBeingEdited={this.state.shoppingListIsBeingEdited}
-          onClick={(index) => this.deleteItem(this.state, index)}
+          onClick={(index) => this.deleteItem(index)}
         />
       </div>
     );
