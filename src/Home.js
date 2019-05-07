@@ -15,7 +15,7 @@ function SearchBox(props) {
     <div>
       <p style={{color: 'red'}}>still in development...</p>
       <div className='flex-row'>
-        <input className='search-input' type='text' placeholder='search...'></input>
+        <input className='search-input' type='text' onKeyPress={props.onKeyPress} placeholder='search...'></input>
         <button onClick={props.onClick}>Clear</button>
       </div>
     </div>
@@ -54,7 +54,7 @@ class ShoppingList extends Component {
         'item 2',
         'item 3'
       ],
-      currentSearch: 'test'
+      currentSearch: ''
     }
   }
 
@@ -70,8 +70,24 @@ class ShoppingList extends Component {
     console.groupEnd('componentDidUpdate');
   }
 
+  /**
+   * This function performs a live search on the shopping list
+   */
+  searchItem = (event) => {
+    // String representation of key press
+    const newChar = String.fromCharCode(event.charCode);
+    // Add new character to previous value and update state
+    this.setState(previousState => ({ currentSearch: previousState.currentSearch += newChar }));
+    // TODO: Filter list to show items containing this string
+    
+    console.log(newChar);
+  }
+
+  /**
+   * This function clears the search term from state and removes text from the input box
+   */
   clearSearch = () => {
-    // TODO: Clear state
+    // Clear state
     this.setState({ currentSearch: '' });
     // Clear input box
     document.querySelector(`.search-input`).value = '';
@@ -124,6 +140,7 @@ class ShoppingList extends Component {
         <br/>
         <SearchBox
           currentSearch={this.state.currentSearch}
+          onKeyPress={(e) => this.searchItem(e)}
           onClick={() => this.clearSearch()}
         />
         <div className='flex-row'>
