@@ -10,6 +10,18 @@ function InputBox(props) {
   );
 }
 
+function SearchBox(props) {
+  return (
+    <div>
+      <p style={{color: 'red'}}>still in development...</p>
+      <div className='flex-row'>
+        <input className='search-input' type='text' placeholder='search...'></input>
+        <button onClick={props.onClick}>Clear</button>
+      </div>
+    </div>
+  );
+}
+
 function ListItems(props) {
   let items;
   // Loop through items in state, add each one to array as <li>
@@ -41,7 +53,8 @@ class ShoppingList extends Component {
         'item 1',
         'item 2',
         'item 3'
-      ]
+      ],
+      currentSearch: 'test'
     }
   }
 
@@ -55,6 +68,13 @@ class ShoppingList extends Component {
     console.group('componentDidUpdate');
       console.log(this.state);
     console.groupEnd('componentDidUpdate');
+  }
+
+  clearSearch = () => {
+    // TODO: Clear state
+    this.setState({ currentSearch: '' });
+    // Clear input box
+    document.querySelector(`.search-input`).value = '';
   }
 
   /**
@@ -101,6 +121,11 @@ class ShoppingList extends Component {
   render() {
     return (
       <div className="shopping-list">
+        <br/>
+        <SearchBox
+          currentSearch={this.state.currentSearch}
+          onClick={() => this.clearSearch()}
+        />
         <div className='flex-row'>
           <h2>Shopping list</h2>
           <button
