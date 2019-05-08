@@ -15,7 +15,7 @@ function SearchBox(props) {
     <div>
       <p style={{color: 'red'}}>still in development...</p>
       <div className='flex-row'>
-        <input className='search-input' type='text' onKeyPress={props.onKeyPress} placeholder='search...'></input>
+        <input className='search-input' type='text' onKeyUp={props.onKeyUp} placeholder='search...'></input>
         <button onClick={props.onClick}>Clear</button>
       </div>
     </div>
@@ -73,14 +73,12 @@ class ShoppingList extends Component {
   /**
    * This function performs a live search on the shopping list
    */
-  searchItem = (event) => {
-    // String representation of key press
-    const newChar = String.fromCharCode(event.charCode);
-    // Add new character to previous value and update state
-    this.setState(previousState => ({ currentSearch: previousState.currentSearch += newChar }));
+  searchItem = () => {
+    // Set currentSearch in state as the value of the search input box
+    const searchInput = document.querySelector('.search-input').value;
+    this.setState({currentSearch: searchInput});
+
     // TODO: Filter list to show items containing this string
-    
-    console.log(newChar);
   }
 
   /**
@@ -140,7 +138,7 @@ class ShoppingList extends Component {
         <br/>
         <SearchBox
           currentSearch={this.state.currentSearch}
-          onKeyPress={(e) => this.searchItem(e)}
+          onKeyUp={(e) => this.searchItem()}
           onClick={() => this.clearSearch()}
         />
         <div className='flex-row'>
