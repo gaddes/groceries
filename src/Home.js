@@ -13,7 +13,6 @@ function InputBox(props) {
 function SearchBox(props) {
   return (
     <div>
-      <p style={{color: 'red'}}>still in development...</p>
       <div className='flex-row'>
         <input className='search-input' type='text' onKeyUp={props.onKeyUp} placeholder='search...'></input>
         <button onClick={props.onClick}>Clear</button>
@@ -23,14 +22,25 @@ function SearchBox(props) {
 }
 
 function ListItems(props) {
+  const currentSearch = props.currentSearch;
   let items;
-  // Loop through items in state, add each one to array as <li>
+
+  // Create new array containing only items that include search text
+  const filteredItems = props.items.filter(item => {
+    if (item.indexOf(currentSearch) === -1) {
+      // eslint-disable-next-line
+      return;
+    }
+    return item;
+  });
+
+  // Loop through filtered items, add each one to array as <li>
   if (props.shoppingListIsBeingEdited) {
-    items = props.items.map((item, index) =>
+    items = filteredItems.map((item, index) =>
       <li key={index}>{item}<button key={index} onClick={() => props.onClick(index)}>Delete</button></li>
     );
   } else {
-    items = props.items.map((item, index) =>
+    items = filteredItems.map((item, index) =>
       <li key={index}>{item}</li>
     );
   }
@@ -50,9 +60,10 @@ class ShoppingList extends Component {
       editButtonText: 'Edit',
       // NOTE: this list is for testing only - items will be added by using the 'add' function in production
       items: [
-        'item 1',
-        'item 2',
-        'item 3'
+        'eggs',
+        'chicken',
+        'pickles',
+        'sausages'
       ],
       currentSearch: ''
     }
@@ -157,6 +168,7 @@ class ShoppingList extends Component {
           items={this.state.items}
           shoppingListIsBeingEdited={this.state.shoppingListIsBeingEdited}
           onClick={(index) => this.deleteItem(index)}
+          currentSearch={this.state.currentSearch}
         />
       </div>
     );
