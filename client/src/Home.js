@@ -129,9 +129,7 @@ class ShoppingList extends Component {
       this.setState(previousState => ({ items: previousState.items.concat([{ desc: inputContent }]) }));
       // TODO: Add new item to Mongo
       axios.post('http://localhost:3001', {
-        item: {
-          desc: inputContent
-        }
+        desc: inputContent
       })
       .then(function (response) {
         console.log(response);
@@ -139,6 +137,7 @@ class ShoppingList extends Component {
       .catch(function (error) {
         console.log(error);
       });
+
       // Clear input field
       inputField.value = '';
     }
