@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import './home.scss';
+// Axios helps us make http requests
+import axios from 'axios';
 
 function InputBox(props) {
   return (
@@ -7,6 +9,13 @@ function InputBox(props) {
       <input className='item-input' type='text' placeholder='eggs, chicken, pickles...'></input>
       <button className='item-add' onClick={props.onClick}>Add</button>
     </div>
+
+    // <div className='flex-row'>
+    //   <form method="post" action="/">
+    //     <input className='item-input' type='text' placeholder='eggs, chicken, pickles...'></input>
+    //     <input type='submit' value='Add' className='item-add' onClick={props.onClick}></input>
+    //   </form>
+    // </div>
   );
 }
 
@@ -27,21 +36,22 @@ function ListItems(props) {
 
   // Create new array containing only items that include search text
   const filteredItems = props.items.filter(item => {
-    if (item.indexOf(currentSearch) === -1) {
+    const itemText = item.desc;
+    if (itemText.indexOf(currentSearch) === -1) {
       // eslint-disable-next-line
       return;
     }
-    return item;
+    return itemText;
   });
 
   // Loop through filtered items, add each one to array as <li>
   if (props.shoppingListIsBeingEdited) {
     items = filteredItems.map((item, index) =>
-      <li key={index}>{item}<button key={index} onClick={() => props.onClick(index)}>Delete</button></li>
+      <li key={index}>{item.desc}<button key={index} onClick={() => props.onClick(index)}>Delete</button></li>
     );
   } else {
     items = filteredItems.map((item, index) =>
-      <li key={index}>{item}</li>
+      <li key={index}>{item.desc}</li>
     );
   }
 
@@ -68,11 +78,12 @@ class ShoppingList extends Component {
     // Grab items from backend and place them in state
     fetch('/items')
       .then(res => res.json())
+      /**
+       * We could pass only the .desc property into state
+       * But we pass everything, just in case we need to work with
+       * _id or some other property further down the line
+       */
       .then(items => this.setState({ items }));
-
-    console.group('componentDidMount');
-      console.log(this.state);
-    console.groupEnd('componentDidMount');
   }
 
   componentDidUpdate() {
@@ -88,8 +99,6 @@ class ShoppingList extends Component {
     // Set currentSearch in state as the value of the search input box
     const searchInput = document.querySelector('.search-input').value;
     this.setState({currentSearch: searchInput});
-
-    // TODO: Filter list to show items containing this string
   }
 
   /**
@@ -106,6 +115,10 @@ class ShoppingList extends Component {
    * This function adds a new item to the list
    */
   addItem = () => {
+    /**
+     * TODO: rewrite this so the input text is passed directly as a param
+     *       ...it's really stupid to use a query selector unnecessarily
+     */
     // Select input box
     const inputField = document.querySelector(`.item-input`);
     const inputContent = inputField.value;
@@ -113,7 +126,19 @@ class ShoppingList extends Component {
     // Check not empty
     if (inputContent !== '') {
       // Update state by concatenating previous state with an array containing only the new item
-      this.setState(previousState => ({ items: previousState.items.concat([inputContent]) }));
+      this.setState(previousState => ({ items: previousState.items.concat([{ desc: inputContent }]) }));
+      // TODO: Add new item to Mongo
+      axios.post('http://localhost:3001', {
+        item: {
+          desc: inputContent
+        }
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
       // Clear input field
       inputField.value = '';
     }
