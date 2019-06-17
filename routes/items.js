@@ -1,11 +1,7 @@
 var express = require('express');
 // Import schema
 const Item = require('../models/Item');
-// // Parse POST requests
-// const bodyParser = require('body-parser');
-// // Create JSON specific parser - used as middleware
-// const jsonParser = bodyParser.json();
-var router = express.Router();
+const router = express.Router();
 
 /* GET existing items */
 router.get('/', function(req, res) {
@@ -17,7 +13,6 @@ router.get('/', function(req, res) {
 
 /* POST new items */
 router.post('/', (req, res) => {
-  console.log(req.body);
   const newItem = new Item(req.body);
 
   newItem.save()

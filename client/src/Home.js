@@ -9,13 +9,6 @@ function InputBox(props) {
       <input className='item-input' type='text' placeholder='eggs, chicken, pickles...'></input>
       <button className='item-add' onClick={props.onClick}>Add</button>
     </div>
-
-    // <div className='flex-row'>
-    //   <form method="post" action="/">
-    //     <input className='item-input' type='text' placeholder='eggs, chicken, pickles...'></input>
-    //     <input type='submit' value='Add' className='item-add' onClick={props.onClick}></input>
-    //   </form>
-    // </div>
   );
 }
 
@@ -127,16 +120,12 @@ class ShoppingList extends Component {
     if (inputContent !== '') {
       // Update state by concatenating previous state with an array containing only the new item
       this.setState(previousState => ({ items: previousState.items.concat([{ desc: inputContent }]) }));
-      // TODO: Add new item to Mongo
-      axios.post('http://localhost:3001', {
+      // Trigger POST request
+      axios.post('http://localhost:3001/', {
         desc: inputContent
       })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+        .then((response) => console.log(response))
+        .catch((error) => console.log(error));
 
       // Clear input field
       inputField.value = '';

@@ -9,6 +9,10 @@ const cors = require('cors');
 // Use ES6 promises - is this required?
 mongoose.Promise = global.Promise;
 
+/**
+ * TODO: update these endpoints so they make more sense syntactically
+ *       e.g. itemsRouter should not deal with requests to '/'
+ */
 var indexRouter = require('./routes/index');
 var itemsRouter = require('./routes/items');
 
@@ -33,7 +37,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// TODO: remove for production?
+// FIXME: remove for production?
 // Add cors support
 app.use(cors());
 
@@ -45,7 +49,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/items', itemsRouter);
-// FIXME: does this fix the 'post' issue?
+// TODO: update this so requests go to '/items' rather than '/'
 app.post('/', itemsRouter);
 
 // catch 404 and forward to error handler
