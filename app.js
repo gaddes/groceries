@@ -51,6 +51,7 @@ app.use('/', indexRouter);
 app.use('/items', itemsRouter);
 // TODO: update this so requests go to '/items' rather than '/'
 app.post('/', itemsRouter);
+app.delete('/', itemsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

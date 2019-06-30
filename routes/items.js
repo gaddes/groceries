@@ -11,17 +11,33 @@ router.get('/', function(req, res) {
   });
 });
 
-/* POST new items */
+/* POST new item */
 router.post('/', (req, res) => {
   const newItem = new Item(req.body);
-
   newItem.save()
     .then(item => {
       console.log(`SUCCESS: ${item} saved to database`);
+      return res.json({ success: true });
     })
     .catch(err => {
       res.status(400).send(`FAILURE: Unable to save to database`);
     });
+});
+
+/* DELETE item */
+router.delete('/', (req, res) => {
+
+  /**
+   * FIXME: bug where item is not assigned an ID immediately after
+   * being added, therefore it cannot be deleted!
+   */
+
+  const idToDelete = req.body.id;
+  Item.deleteOne({ _id: idToDelete }, (err) => {
+    if (err) return res.send(err);
+    console.log(`SUCCESS: item with ID = ${idToDelete} removed from database`);
+    return res.json({ success: true });
+  });
 });
 
 module.exports = router;

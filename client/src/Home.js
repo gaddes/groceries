@@ -138,8 +138,18 @@ class ShoppingList extends Component {
    * @param {integer} index - index of item to be deleted
    */
   deleteItem = (index) => {
+    const itemId = this.state.items[index]._id
     // Update state by filtering previousState so it no longer includes the item corresponding to the clicked delete button
     this.setState(previousState => ({ items: previousState.items.filter((item, key) => key !== index) }));
+    // Remove from database
+    axios.delete('http://localhost:3001/', {
+      // 'data' keyword is required by axios to populate the req.body
+      data: {
+        id: itemId
+      }
+    })
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
   }
 
   /**
