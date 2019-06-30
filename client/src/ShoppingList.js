@@ -79,12 +79,6 @@ class ShoppingList extends Component {
       .then(items => this.setState({ items }));
   }
 
-  componentDidUpdate() {
-    console.group('componentDidUpdate');
-    console.log(this.state);
-    console.groupEnd('componentDidUpdate');
-  }
-
   /**
    * This function performs a live search on the shopping list
    */
