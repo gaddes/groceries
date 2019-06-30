@@ -118,7 +118,7 @@ class ShoppingList extends Component {
       // Update state by concatenating previous state with an array containing only the new item
       this.setState(previousState => ({ items: previousState.items.concat([{ desc: inputContent }]) }));
       // Trigger POST request
-      axios.post('http://localhost:3001/', {
+      axios.post('/items', {
         desc: inputContent
       })
         .then((response) => console.log(response))
@@ -139,7 +139,7 @@ class ShoppingList extends Component {
     // Update state by filtering previousState so it no longer includes the item corresponding to the clicked delete button
     this.setState(previousState => ({ items: previousState.items.filter((item, key) => key !== index) }));
     // Remove from database
-    axios.delete('http://localhost:3001/', {
+    axios.delete('/items', {
       // 'data' keyword is required by axios to populate the req.body
       data: {
         id: itemId

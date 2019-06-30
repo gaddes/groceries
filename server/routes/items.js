@@ -12,7 +12,7 @@ router.get('/items', function(req, res) {
 });
 
 /* POST new item */
-router.post('/', (req, res) => {
+router.post('/items', (req, res) => {
   const newItem = new Item(req.body);
   newItem.save()
     .then(item => {
@@ -25,7 +25,7 @@ router.post('/', (req, res) => {
 });
 
 /* DELETE item */
-router.delete('/', (req, res) => {
+router.delete('/items', (req, res) => {
   const idToDelete = req.body.id;
   Item.deleteOne({ _id: idToDelete }, (err) => {
     if (err) return res.send(err);

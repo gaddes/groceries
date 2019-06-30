@@ -43,9 +43,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/items', itemsRouter);
-// TODO: update these so requests go to '/items' rather than '/'
-app.post('/', itemsRouter);
-app.delete('/', itemsRouter);
+app.post('/items', itemsRouter);
+app.delete('/items', itemsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
