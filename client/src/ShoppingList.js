@@ -68,7 +68,12 @@ class ShoppingList extends Component {
   }
 
   componentDidMount() {
-    // Grab items from backend and place them in state
+    /**
+     * Grab items from backend and place them in state
+     * We have to use /items here (rather than '/')
+     * because this would clash with create-react-app
+     * accessing the homepage
+     */
     fetch('/items')
       .then(res => res.json())
       /**
