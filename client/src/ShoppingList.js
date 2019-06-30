@@ -104,11 +104,7 @@ class ShoppingList extends Component {
    * This function adds a new item to the list
    */
   addItem = () => {
-    /**
-     * TODO: rewrite this so the input text is passed directly as a param
-     *       ...it's really stupid to use a query selector unnecessarily
-     */
-    // Select input box
+    // Select value from input box
     const inputField = document.querySelector(`.item-input`);
     const inputContent = inputField.value;
 
