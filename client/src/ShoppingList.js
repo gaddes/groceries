@@ -61,7 +61,6 @@ class ShoppingList extends Component {
     this.state = {
       shoppingListIsBeingEdited: false,
       editButtonText: 'Edit',
-      // NOTE: items currently defined in backend items.js, but these will be migrated to MongoDB
       items: [],
       currentSearch: ''
     }
@@ -109,7 +108,7 @@ class ShoppingList extends Component {
      * TODO: rewrite this so the input text is passed directly as a param
      *       ...it's really stupid to use a query selector unnecessarily
      */
-      // Select input box
+    // Select input box
     const inputField = document.querySelector(`.item-input`);
     const inputContent = inputField.value;
 
