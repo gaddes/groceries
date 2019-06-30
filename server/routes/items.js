@@ -4,7 +4,7 @@ const Item = require('../models/Item');
 const router = express.Router();
 
 /* GET existing items */
-router.get('/items', function(req, res) {
+router.get('/items', (req, res) => {
   Item.find((err, data) => {
     if (err) return res.json({ success: false, error: err });
     return res.json(data);
