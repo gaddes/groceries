@@ -26,12 +26,6 @@ router.post('/', (req, res) => {
 
 /* DELETE item */
 router.delete('/', (req, res) => {
-
-  /**
-   * FIXME: bug where item is not assigned an ID immediately after
-   * being added, therefore it cannot be deleted!
-   */
-
   const idToDelete = req.body.id;
   Item.deleteOne({ _id: idToDelete }, (err) => {
     if (err) return res.send(err);
