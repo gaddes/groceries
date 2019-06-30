@@ -40,7 +40,13 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+
+/**
+ * Point the production version of our app to the static files
+ * React created during the build process -> index.html
+ */
+
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 /**
  * Handle HTTP requests
