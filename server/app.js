@@ -42,8 +42,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/items', itemsRouter);
-// TODO: update this so requests go to '/items' rather than '/'
+app.get('/items', itemsRouter);
+// TODO: update these so requests go to '/items' rather than '/'
 app.post('/', itemsRouter);
 app.delete('/', itemsRouter);
 
@@ -60,7 +60,15 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  /**
+   * Error is returned in JSON format because the default
+   * error page is a Jade template, and because we're using React,
+   * all Jade stuff has been removed from this project
+   */
+  res.json({
+    message: err.message,
+    error: err
+  });
 });
 
 module.exports = app;
