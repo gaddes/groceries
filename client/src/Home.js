@@ -92,7 +92,7 @@ class ShoppingList extends Component {
     // Set currentSearch in state as the value of the search input box
     const searchInput = document.querySelector('.search-input').value;
     this.setState({currentSearch: searchInput});
-  }
+  };
 
   /**
    * This function clears the search term from state and removes text from the input box
@@ -102,7 +102,7 @@ class ShoppingList extends Component {
     this.setState({ currentSearch: '' });
     // Clear input box
     document.querySelector(`.search-input`).value = '';
-  }
+  };
 
   /**
    * This function adds a new item to the list
@@ -130,7 +130,7 @@ class ShoppingList extends Component {
       // Clear input field
       inputField.value = '';
     }
-  }
+  };
 
   /**
    * This function deletes an item from the list
@@ -150,7 +150,7 @@ class ShoppingList extends Component {
     })
       .then((response) => console.log(response))
       .catch((error) => console.log(error));
-  }
+  };
 
   /**
    * This function sets the state of various attributes,
@@ -164,7 +164,7 @@ class ShoppingList extends Component {
       this.setState({ shoppingListIsBeingEdited: false });
       this.setState({ editButtonText: 'Edit'});
     }
-  }
+  };
 
   render() {
     return (
