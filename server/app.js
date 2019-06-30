@@ -13,7 +13,6 @@ mongoose.Promise = global.Promise;
  * TODO: update these endpoints so they make more sense syntactically
  *       e.g. itemsRouter should not deal with requests to '/'
  */
-var indexRouter = require('./routes/index');
 var itemsRouter = require('./routes/items');
 
 var app = express();
@@ -43,7 +42,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
 app.use('/items', itemsRouter);
 // TODO: update this so requests go to '/items' rather than '/'
 app.post('/', itemsRouter);
