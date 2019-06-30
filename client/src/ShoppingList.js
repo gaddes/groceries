@@ -69,19 +69,17 @@ class ShoppingList extends Component {
 
   componentDidMount() {
     /**
-     * Grab items from backend and place them in state
-     * We have to use /items here (rather than '/')
-     * because this would clash with create-react-app
-     * accessing the homepage
+     * Fetch items from backend and place them in state
+     *
+     * We could pass only the .desc property into state
+     * But we pass everything, just in case we need to work with
+     * _id or some other property further down the line
      */
-    fetch('/items')
-      .then(res => res.json())
-      /**
-       * We could pass only the .desc property into state
-       * But we pass everything, just in case we need to work with
-       * _id or some other property further down the line
-       */
-      .then(items => this.setState({ items }));
+    axios.get('/items')
+      .then(res => {
+        const items = res.data;
+        this.setState({ items });
+      });
   }
 
   /**
