@@ -5,7 +5,7 @@ import './header.scss';
 function Header() {
   return (
     <div className='header'>
-      <Link className='title' to='/home'>
+      <Link className='title' to='/'>
         <span className='title__text'>Groceries App</span>
       </Link>
     </div>
