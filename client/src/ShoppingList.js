@@ -66,7 +66,7 @@ class ShoppingList extends Component {
     }
   }
 
-  componentDidMount() {
+  fetchItemsAndUpdateState() {
     /**
      * Fetch items from backend and place them in state
      *
@@ -79,6 +79,10 @@ class ShoppingList extends Component {
         const items = res.data;
         this.setState({ items });
       });
+  };
+
+  componentDidMount() {
+    this.fetchItemsAndUpdateState();
   }
 
   /**
@@ -111,12 +115,16 @@ class ShoppingList extends Component {
     // Check not empty
     if (inputContent !== '') {
       // Update state by concatenating previous state with an array containing only the new item
-      this.setState(previousState => ({ items: previousState.items.concat([{ desc: inputContent }]) }));
+      // this.setState(previousState => ({ items: previousState.items.concat([{ desc: inputContent }]) }));
       // Trigger POST request
       axios.post('/items', {
         desc: inputContent
       })
-        .then((response) => console.log(response))
+        .then((response) => {
+          console.log(response);
+          // Fetch and display items (incl. the new one we've just posted)
+          this.fetchItemsAndUpdateState();
+        })
         .catch((error) => console.log(error));
 
       // Clear input field
