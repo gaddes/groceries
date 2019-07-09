@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
 const itemSchema = new mongoose.Schema({
-  desc: String
+  desc: String,
+  isChecked: Boolean,
 });
 
 module.exports = mongoose.model('Item', itemSchema);

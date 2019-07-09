@@ -23,6 +23,21 @@ function SearchBox(props) {
   );
 }
 
+const strikethrough = (index) => {
+  console.log(index);
+  // 1) Strikethrough
+
+  // 2) Update state
+
+  // 3) Update isChecked on server
+}
+
+const Item = (props) => {
+  return (
+    <li></li>
+  );
+}
+
 function ListItems(props) {
   const currentSearch = props.currentSearch;
   let items;
@@ -40,11 +55,13 @@ function ListItems(props) {
   // Loop through filtered items, add each one to array as <li>
   if (props.shoppingListIsBeingEdited) {
     items = filteredItems.map((item, index) =>
+      // TODO: replace <li> with <Item> component
+      // <Item key={index}></Item>
       <li key={index}>{item.desc}<button key={index} onClick={() => props.onClick(index)}>Delete</button></li>
     );
   } else {
     items = filteredItems.map((item, index) =>
-      <li key={index}>{item.desc}</li>
+      <li key={index} onClick={() => strikethrough(index)}>{item.desc}</li>
     );
   }
 
