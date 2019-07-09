@@ -37,14 +37,16 @@ app.use(cookieParser());
 /**
  * Point the production version of our app to the static files
  * React created during the build process -> index.html
+ *
+ * TODO: This should be commented out for DEVELOPMENT
+ * TODO: And un-commented for PRODUCTION
  */
-
-app.use(express.static(path.join(__dirname, '../client/build')));
+app.use(express.static(path.join(__dirname, '/client/build')));
 
 // Handles any requests that don't match the ones above
-app.get('/*', (req,res) =>{
-  res.sendFile(path.join(__dirname + '../client/build/index.html'));
-});
+// app.get('/*', (req,res) =>{
+//   res.sendFile(path.join(__dirname + '/client/build/index.html'));
+// });
 
 /**
  * Handle HTTP requests
