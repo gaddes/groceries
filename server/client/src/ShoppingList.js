@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './shoppingList.scss';
 // Axios helps us make http requests
 import axios from 'axios';
+import Item from './Item';
 
 function InputBox(props) {
   return (
@@ -23,27 +24,11 @@ function SearchBox(props) {
   );
 }
 
-const strikethrough = (index) => {
-  console.log(index);
-  // 1) Strikethrough
-
-  // 2) Update state
-
-  // 3) Update isChecked on server
-}
-
-const Item = (props) => {
-  return (
-    <li></li>
-  );
-}
-
 function ListItems(props) {
-  const currentSearch = props.currentSearch;
-  let items;
+  const { currentSearch, items } = props;
 
   // Create new array containing only items that include search text
-  const filteredItems = props.items.filter(item => {
+  const filteredItems = items.filter(item => {
     const itemText = item.desc;
     if (itemText.indexOf(currentSearch) === -1) {
       // eslint-disable-next-line
@@ -52,23 +37,21 @@ function ListItems(props) {
     return itemText;
   });
 
-  // Loop through filtered items, add each one to array as <li>
-  if (props.shoppingListIsBeingEdited) {
-    items = filteredItems.map((item, index) =>
-      // TODO: replace <li> with <Item> component
-      // <Item key={index}></Item>
-      <li key={index}>{item.desc}<button key={index} onClick={() => props.onClick(index)}>Delete</button></li>
-    );
-  } else {
-    items = filteredItems.map((item, index) =>
-      <li key={index} onClick={() => strikethrough(index)}>{item.desc}</li>
-    );
-  }
+  const renderedItems = filteredItems.map((item, index) =>
+    <Item
+      key={index}
+      index={index}
+      isChecked={item.isChecked}
+      content={item.desc}
+      deleteItem={() => props.onClick(index)}
+      shoppingListIsBeingEdited={props.shoppingListIsBeingEdited}
+    />
+  );
 
   return (
-    <ul className="list-items">
-      {items}
-    </ul>
+    <div className="list-items">
+      {renderedItems}
+    </div>
   );
 }
 
@@ -79,7 +62,7 @@ class ShoppingList extends Component {
       shoppingListIsBeingEdited: false,
       editButtonText: 'Edit',
       items: [],
-      currentSearch: ''
+      currentSearch: '',
     }
   }
 
@@ -131,11 +114,10 @@ class ShoppingList extends Component {
 
     // Check not empty
     if (inputContent !== '') {
-      // Update state by concatenating previous state with an array containing only the new item
-      // this.setState(previousState => ({ items: previousState.items.concat([{ desc: inputContent }]) }));
       // Trigger POST request
       axios.post('/items', {
-        desc: inputContent
+        desc: inputContent,
+        isChecked: false,
       })
         .then((response) => {
           console.log(response);
