@@ -2,10 +2,15 @@ import React from 'react'
 import './item.scss';
 
 export default function Item(props) {
-  const { index, content, isChecked, shoppingListIsBeingEdited, deleteItem } = props;
+  const { index, content, isChecked, isCheckedHandler, shoppingListIsBeingEdited, deleteItem } = props;
 
-  const strikethrough = (index) => {
+  const calculateChecked = () => {
+    return isChecked ? 'checked' : 'unchecked';
+  }
+
+  const setChecked = (index) => {
     console.log(index);
+
     /**
      * TODO: Set state of isChecked for specific item
      * TODO: Do this by providing a click handler as props;
@@ -23,11 +28,12 @@ export default function Item(props) {
   }
 
   return (
-    <div className='item flex-row'>
-      <div className='checkbox'></div>
-      <span
-        onClick={() => strikethrough(index)}
-      >{content}</span>
+    <div
+      className='item flex-row'
+      onClick={isCheckedHandler}
+    >
+      <div className={calculateChecked()}></div>
+      <span>{content}</span>
       {/* Show button only when list is being edited */}
       {shoppingListIsBeingEdited &&
         <button onClick={() => deleteItem(index)}>NewDelete</button>

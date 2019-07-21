@@ -2,11 +2,20 @@
 
 .item {
   margin: 0.5rem;
+  cursor: pointer;
 
-  .checkbox {
+  .unchecked {
     height: 1rem;
     width: 1rem;
     border: 1px solid black;
     margin-right: 0.5rem;
+  }
+
+  .checked {
+    height: 1rem;
+    width: 1rem;
+    border: 1px solid black;
+    margin-right: 0.5rem;
+    background-color: black;
   }
 }

@@ -7,7 +7,8 @@ export default function ListItems(props) {
     currentSearch,
     items,
     shoppingListIsBeingEdited,
-    clickHandler
+    clickHandler,
+    isCheckedHandler
   } = props;
 
   // Create new array containing only items that include search text
@@ -25,6 +26,7 @@ export default function ListItems(props) {
       key={index}
       index={index}
       isChecked={item.isChecked}
+      isCheckedHandler={() => isCheckedHandler(index)}
       content={item.desc}
       deleteItem={clickHandler}
       shoppingListIsBeingEdited={shoppingListIsBeingEdited}

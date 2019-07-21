@@ -89,7 +89,7 @@ class ShoppingList extends Component {
    * @param {integer} index - index of item to be deleted
    */
   deleteItem = (index) => {
-    const itemId = this.state.items[index]._id
+    const itemId = this.state.items[index]._id;
     // Update state by filtering previousState so it no longer includes the item corresponding to the clicked delete button
     this.setState(previousState => ({ items: previousState.items.filter((item, key) => key !== index) }));
     // Remove from database
@@ -102,6 +102,37 @@ class ShoppingList extends Component {
       .then((response) => console.log(response))
       .catch((error) => console.log(error));
   };
+
+  /**
+   * Set whether an item is checked or not
+   *
+   * @param {integer} index - index of item to check
+   */
+  setChecked = (index) => {
+    const itemId = this.state.items[index]._id;
+    // Calculate inverse of previous state
+    const newCheckedState = !this.state.items[index].isChecked;
+
+    /**
+     * 1) Copy previous state
+     * 2) Modify property of specific item
+     * 3) Return modified items (this sets new state)
+     */
+    this.setState(previousState => {
+      const newItems = [ ...previousState.items ];
+      newItems[index].isChecked = newCheckedState;
+      return { items: newItems };
+    });
+
+    // Update item in database
+    axios.put(`/items/${itemId}`, {
+      isChecked: newCheckedState
+    })
+      .then((response) => {
+        // Do stuff here if needed
+      })
+      .catch((error) => console.log(error));
+  }
 
   /**
    * This function sets the state of various attributes,
@@ -138,6 +169,7 @@ class ShoppingList extends Component {
           shoppingListIsBeingEdited={this.state.shoppingListIsBeingEdited}
           clickHandler={(index) => this.deleteItem(index)}
           currentSearch={this.state.currentSearch}
+          isCheckedHandler={(index) => this.setChecked(index)}
         />
       </div>
     );
