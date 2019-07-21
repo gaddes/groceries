@@ -5,15 +5,7 @@ import axios from 'axios';
 import Item from './Item';
 import ListFilter from './ListFilter';
 import ListHeader from './ListHeader';
-
-function ListInput(props) {
-  return (
-    <div className='flex-row'>
-      <input className='item-input' type='text' placeholder='eggs, chicken, pickles...'></input>
-      <button className='item-add' onClick={props.onClick}>Add</button>
-    </div>
-  );
-}
+import ListInput from './ListInput';
 
 function ListItems(props) {
   const { currentSearch, items } = props;
@@ -170,7 +162,7 @@ class ShoppingList extends Component {
           buttonClickHandler={() => this.editList()}
         />
         <ListInput
-          onClick={() => this.addItem()}
+          clickHandler={() => this.addItem()}
         />
         <ListItems
           items={this.state.items}
