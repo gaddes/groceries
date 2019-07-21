@@ -1,5 +1,6 @@
 import React from 'react'
 import Item from './Item';
+import './listItems.scss';
 
 export default function ListItems(props) {
   const { 
