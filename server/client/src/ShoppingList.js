@@ -2,41 +2,10 @@ import React, { Component } from 'react';
 import './shoppingList.scss';
 // Axios helps us make http requests
 import axios from 'axios';
-import Item from './Item';
 import ListFilter from './ListFilter';
 import ListHeader from './ListHeader';
 import ListInput from './ListInput';
-
-function ListItems(props) {
-  const { currentSearch, items } = props;
-
-  // Create new array containing only items that include search text
-  const filteredItems = items.filter(item => {
-    const itemText = item.desc;
-    if (itemText.indexOf(currentSearch) === -1) {
-      // eslint-disable-next-line
-      return;
-    }
-    return itemText;
-  });
-
-  const renderedItems = filteredItems.map((item, index) =>
-    <Item
-      key={index}
-      index={index}
-      isChecked={item.isChecked}
-      content={item.desc}
-      deleteItem={() => props.onClick(index)}
-      shoppingListIsBeingEdited={props.shoppingListIsBeingEdited}
-    />
-  );
-
-  return (
-    <div className="list-items">
-      {renderedItems}
-    </div>
-  );
-}
+import ListItems from './ListItems';
 
 class ShoppingList extends Component {
   constructor(props) {
@@ -167,7 +136,7 @@ class ShoppingList extends Component {
         <ListItems
           items={this.state.items}
           shoppingListIsBeingEdited={this.state.shoppingListIsBeingEdited}
-          onClick={(index) => this.deleteItem(index)}
+          clickHandler={(index) => this.deleteItem(index)}
           currentSearch={this.state.currentSearch}
         />
       </div>
