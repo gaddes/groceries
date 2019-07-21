@@ -19,6 +19,9 @@ $project-hover-transform: scale(1.05);
 // Position and layout
 .flex-row {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+}
+
+.space-between {
+  justify-content: space-between;
 }

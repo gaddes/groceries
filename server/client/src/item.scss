@@ -1,0 +1,12 @@
+@import 'variables';
+
+.item {
+  margin: 0.5rem;
+
+  .checkbox {
+    height: 1rem;
+    width: 1rem;
+    border: 1px solid black;
+    margin-right: 0.5rem;
+  }
+}

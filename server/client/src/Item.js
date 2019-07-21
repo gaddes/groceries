@@ -1,4 +1,5 @@
 import React from 'react'
+import './item.scss';
 
 export default function Item(props) {
   const { index, content, isChecked, shoppingListIsBeingEdited, deleteItem } = props;
@@ -22,7 +23,8 @@ export default function Item(props) {
   }
 
   return (
-    <div>
+    <div className='item flex-row'>
+      <div className='checkbox'></div>
       <span
         onClick={() => strikethrough(index)}
       >{content}</span>

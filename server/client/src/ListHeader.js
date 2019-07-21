@@ -4,7 +4,7 @@ export default function ListHeader(props) {
   const { buttonText, buttonClickHandler } = props;
 
   return (
-    <div className='flex-row'>
+    <div className='flex-row space-between'>
       <h2>Shopping list</h2>
       <button
         className='item-edit'
