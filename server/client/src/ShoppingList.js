@@ -4,22 +4,38 @@ import './shoppingList.scss';
 import axios from 'axios';
 import Item from './Item';
 
-function InputBox(props) {
-  return (
-    <div className='flex-row'>
-      <input className='item-input' type='text' placeholder='eggs, chicken, pickles...'></input>
-      <button className='item-add' onClick={props.onClick}>Add</button>
-    </div>
-  );
-}
-
-function SearchBox(props) {
+function ListFilter(props) {
   return (
     <div>
       <div className='flex-row'>
         <input className='search-input' type='text' onKeyUp={props.onKeyUp} placeholder='search...'></input>
         <button onClick={props.onClick}>Clear</button>
       </div>
+    </div>
+  );
+}
+
+function ListHeader(props) {
+  const { buttonText, buttonClickHandler } = props;
+
+  return (
+    <div className='flex-row'>
+      <h2>Shopping list</h2>
+      <button
+        className='item-edit'
+        onClick={buttonClickHandler}
+      >
+        {buttonText}
+      </button>
+    </div>
+  );
+}
+
+function ListInput(props) {
+  return (
+    <div className='flex-row'>
+      <input className='item-input' type='text' placeholder='eggs, chicken, pickles...'></input>
+      <button className='item-add' onClick={props.onClick}>Add</button>
     </div>
   );
 }
@@ -169,21 +185,16 @@ class ShoppingList extends Component {
     return (
       <div className="shopping-list">
         <br/>
-        <SearchBox
+        <ListFilter
           currentSearch={this.state.currentSearch}
           onKeyUp={(e) => this.searchItem()}
           onClick={() => this.clearSearch()}
         />
-        <div className='flex-row'>
-          <h2>Shopping list</h2>
-          <button
-            className='item-edit'
-            onClick={() => this.editList()}
-          >
-            {this.state.editButtonText}
-          </button>
-        </div>
-        <InputBox
+        <ListHeader
+          buttonText={this.state.editButtonText}
+          buttonClickHandler={() => this.editList()}
+        />
+        <ListInput
           onClick={() => this.addItem()}
         />
         <ListItems
