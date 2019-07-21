@@ -11,6 +11,21 @@ router.get('/items', (req, res) => {
   });
 });
 
+/* UPDATE existing item */
+router.put('/items/:id', (req, res) => {
+  const itemId = req.params.id;
+  const valueToUpdate = req.body;
+
+  // { new: true } means that res.send(item) will send the updated item
+  Item.findByIdAndUpdate({ _id: itemId }, valueToUpdate, { new: true })
+    .then(item => {
+      res.send(item);
+    })
+    .catch(err => {
+      res.status(400).send(`FAILURE: Unable to update item`);
+    });
+});
+
 /* POST new item */
 router.post('/items', (req, res) => {
   const newItem = new Item(req.body);

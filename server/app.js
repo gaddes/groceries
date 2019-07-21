@@ -54,6 +54,7 @@ app.use(express.static(path.join(__dirname, '/client/build')));
 
 app.get('/items', itemsRouter);
 app.post('/items', itemsRouter);
+app.put('/items/:id', itemsRouter);
 app.delete('/items', itemsRouter);
 
 // catch 404 and forward to error handler
