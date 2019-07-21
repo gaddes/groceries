@@ -1,19 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './shoppingList.scss';
 // Axios helps us make http requests
 import axios from 'axios';
 import Item from './Item';
-
-function ListFilter(props) {
-  return (
-    <div>
-      <div className='flex-row'>
-        <input className='search-input' type='text' onKeyUp={props.onKeyUp} placeholder='search...'></input>
-        <button onClick={props.onClick}>Clear</button>
-      </div>
-    </div>
-  );
-}
+import ListFilter from './ListFilter';
 
 function ListHeader(props) {
   const { buttonText, buttonClickHandler } = props;
@@ -187,8 +177,8 @@ class ShoppingList extends Component {
         <br/>
         <ListFilter
           currentSearch={this.state.currentSearch}
-          onKeyUp={(e) => this.searchItem()}
-          onClick={() => this.clearSearch()}
+          keyUpHandler={(e) => this.searchItem()}
+          clickHandler={() => this.clearSearch()}
         />
         <ListHeader
           buttonText={this.state.editButtonText}
