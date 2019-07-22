@@ -16,6 +16,7 @@ router.put('/items/:id', (req, res) => {
   const itemId = req.params.id;
   const valueToUpdate = req.body;
 
+  // TODO: findByIdAndUpdate is deprecated (?) is there another method we can use instead?
   // { new: true } means that res.send(item) will send the updated item
   Item.findByIdAndUpdate({ _id: itemId }, valueToUpdate, { new: true })
     .then(item => {
